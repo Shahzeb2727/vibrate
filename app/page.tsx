@@ -117,6 +117,17 @@ export default function Home() {
 
 
 
+  function one99sec() {
+    setTimeout(() => {
+      const haptics = new WebHaptics();
+      haptics.trigger([
+        { duration: 40, intensity: 0.7 },
+        { delay: 40, duration: 40, intensity: 0.7 },
+        { delay: 30, duration: 130, intensity: 0.9 },
+        { delay: 50, duration: 50, intensity: 0.6 },
+      ])
+    }, 999);
+  }
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -126,6 +137,7 @@ export default function Home() {
       <button onClick={() => triggerSeparateVibration()}>triggerSeparateVibration</button><br />
 
 
+      <button onClick={() => one99sec()}>Vibrate afetr 999 ms</button><br />
       <button onClick={() => onesec()}>Vibrate afetr 1 sec</button><br />
       <button onClick={() => twosec()}>Vibrate after 2 sec</button><br />
       <button onClick={() => threesec()}>Vibrate after 3 sec</button><br />
