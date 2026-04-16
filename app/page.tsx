@@ -115,6 +115,18 @@ export default function Home() {
     }, 5000);
   }
 
+  function one800sec() {
+    setTimeout(() => {
+      const haptics = new WebHaptics();
+      haptics.trigger([
+        { duration: 40, intensity: 0.7 },
+        { delay: 40, duration: 40, intensity: 0.7 },
+        { delay: 30, duration: 130, intensity: 0.9 },
+        { delay: 50, duration: 50, intensity: 0.6 },
+      ])
+    }, 800);
+  }
+
 
 
   function one99sec() {
@@ -137,6 +149,8 @@ export default function Home() {
       <button onClick={() => triggerSeparateVibration()}>triggerSeparateVibration</button><br />
 
 
+
+      <button onClick={() => one800sec()}>Vibrate afetr 800 ms</button><br />
       <button onClick={() => one99sec()}>Vibrate afetr 999 ms</button><br />
       <button onClick={() => onesec()}>Vibrate afetr 1 sec</button><br />
       <button onClick={() => twosec()}>Vibrate after 2 sec</button><br />
