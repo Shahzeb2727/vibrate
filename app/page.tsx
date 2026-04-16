@@ -9,10 +9,18 @@ export default function Home() {
     const timer = setTimeout(() => {
       const haptics = new WebHaptics();
       haptics.trigger([
-        { duration: 30 },
-        { delay: 60, duration: 40, intensity: 1 },
-        { delay: 50, duration: 40, intensity: 1 },
-        { delay: 80, duration: 50, intensity: 1 },
+        // { duration: 30 },
+        // { delay: 60, duration: 40, intensity: 1 },
+        // { delay: 50, duration: 40, intensity: 1 },
+        // { delay: 80, duration: 50, intensity: 1 },
+
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
       ])
       console.log("direct matched vibrate");
     }, 0);
@@ -154,15 +162,13 @@ export default function Home() {
     const timer = setTimeout(() => {
       haptics.trigger(
         [
-           { duration: 6000, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-          { delay: 40, duration: 760, intensity: 1 },
-           { duration: 6000, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
+          { delay: 200, duration: 760, intensity: 1 },
         ]
       );
 
