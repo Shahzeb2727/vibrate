@@ -127,6 +127,19 @@ export default function Home() {
     }, 999);
   }
 
+
+  function one900sec() {
+    setTimeout(() => {
+      const haptics = new WebHaptics();
+      haptics.trigger(
+        [{ duration: 800 }],
+        { intensity: 1 }
+      );
+    }, 900);
+  }
+
+  
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <button onClick={() => triggerDirectMatchVibration()}>triggerDirectMatchVibration</button> <br />
@@ -137,6 +150,7 @@ export default function Home() {
 
 
       <button onClick={() => one800sec()}>Vibrate afetr 800 ms</button><br />
+      <button onClick={() => one900sec()}>Vibrate afetr 800 ms</button><br />
       <button onClick={() => one99sec()}>Vibrate afetr 999 ms</button><br />
       <button onClick={() => onesec()}>Vibrate afetr 1 sec</button><br />
       <button onClick={() => twosec()}>Vibrate after 2 sec</button><br />
