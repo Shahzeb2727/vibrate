@@ -163,7 +163,7 @@ export default function Home() {
 
 
       <button onClick={() => one800sec()}>Vibrate afetr 800 ms</button><br />
-      <button onClick={() => one900sec()}>Vibrate afetr 800 ms</button><br />
+      <button onClick={() => one900sec()}>Vibrate afetr 900 ms</button><br />
       <button onClick={() => one99sec()}>Vibrate afetr 999 ms</button><br />
       <button onClick={() => onesec()}>Vibrate afetr 1 sec</button><br />
       <button onClick={() => twosec()}>Vibrate after 2 sec</button><br />
