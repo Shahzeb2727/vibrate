@@ -38,7 +38,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       const haptics = new WebHaptics();
       haptics.trigger(
-        [{ duration: 800 }],
+        [{ duration: 7000 }],
         { intensity: 1 }
       );
     }, 0);
@@ -108,7 +108,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       const haptics = new WebHaptics();
       haptics.trigger(
-        [{ duration: 800 }],
+        [{ duration: 7000 }],
         { intensity: 1 }
       );
     }, 5000);
