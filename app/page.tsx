@@ -1,6 +1,7 @@
 "use client";
 
 import { WebHaptics } from "web-haptics";
+import Page2 from "./com";
 
 export default function Home() {
 
@@ -170,6 +171,8 @@ export default function Home() {
       <button onClick={() => foursec()}>Vibrate after 4 sec</button><br />
       <button onClick={() => fivesec()}>Vibrate after 5 sec</button><br />
 
+
+     <Page2 />
     </div>
   );
 }
