@@ -1,53 +1,43 @@
-let unlockedCtx = null;
-
-const unlockAudioContext = () => {
-  if (unlockedCtx) return unlockedCtx;
-
-  const AudioContext = window.AudioContext || window.webkitAudioContext;
-  unlockedCtx = new AudioContext();
-
-  // Play silent buffer immediately to unlock within gesture window
-  const buffer = unlockedCtx.createBuffer(1, 1, 22050);
-  const source = unlockedCtx.createBufferSource();
-  source.buffer = buffer;
-  source.connect(unlockedCtx.destination);
-  source.start(0);
-
-  return unlockedCtx;
-};
-
-const iosVibrate = (ctx, delaySeconds = 0) => {
-  try {
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    oscillator.connect(gainNode);
-    gainNode.connect(ctx.destination);
-    gainNode.gain.value = 0;
-    oscillator.frequency.value = 1;
-    oscillator.start(ctx.currentTime + delaySeconds);
-    oscillator.stop(ctx.currentTime + delaySeconds + 0.01);
-  } catch (e) {}
-};
-
 const useHaptic = () => {
-  const trigger = (type = 'medium', delayMs = 0) => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-    if (isIOS) {
-      // Unlock IMMEDIATELY inside gesture handler, then schedule via AudioContext clock
-      const ctx = unlockAudioContext();
-      iosVibrate(ctx, delayMs / 1000);
+  const trigger = (type = 'medium', delayMs = 0) => {
+    if (typeof navigator === 'undefined') return;
+
+    // iOS doesn't support navigator.vibrate at all — skip silently
+    if (!navigator.vibrate) return;
+
+    const durations = { light: 30, medium: 60, heavy: 100 };
+    const duration = durations[type] || 60;
+
+    if (delayMs > 0) {
+      // [silence, buzz] pattern — called SYNCHRONOUSLY inside gesture handler
+      // Delay is baked into the vibration pattern, NOT a setTimeout
+      // This never expires the gesture window, works for any delay
+      navigator.vibrate([delayMs, duration]);
     } else {
-      if (navigator.vibrate) {
-        const durations = { light: 30, medium: 60, heavy: 100 };
-        const duration = durations[type] || 60;
-        // [delay, duration] = silence then buzz — all in one gesture-window call
-        navigator.vibrate(delayMs > 0 ? [delayMs, duration] : [duration]);
-      }
+      navigator.vibrate([duration]);
     }
   };
 
-  return { trigger };
+  // For multiple delayed buzzes (e.g. 5 buzzes after 5 seconds)
+  const triggerSequence = (pattern = [], delayMs = 0) => {
+    if (typeof navigator === 'undefined' || !navigator.vibrate) return;
+
+    // pattern = [{duration, gap}, ...] where gap = pause between buzzes
+    // Convert to flat vibration array: [silence, buzz, pause, buzz, pause, ...]
+    const flat = [];
+
+    if (delayMs > 0) flat.push(delayMs); // leading silence = delay
+
+    pattern.forEach((step, i) => {
+      flat.push(step.duration);
+      if (i < pattern.length - 1) flat.push(step.gap ?? 200);
+    });
+
+    navigator.vibrate(flat);
+  };
+
+  return { trigger, triggerSequence };
 };
 
 export default useHaptic;
